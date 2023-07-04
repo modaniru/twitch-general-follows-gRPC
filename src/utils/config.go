@@ -5,8 +5,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-// TODO documentation
-
+// Load ("./" or "./configuration").config.yaml and .env files
 func LoadConfig(filePath, fileType string) error {
 	err := godotenv.Load()
 	if err != nil {

@@ -5,8 +5,7 @@ import (
 	"github.com/modaniru/tgf-gRPC/src/client"
 )
 
-// TODO documentation
-
+// Mapping []client.UserInfo to []*pkg.ResponseUser
 func UserInfoToResponseUser(usersInfo []client.UserInfo) []*pkg.ResponseUser {
 	res := make([]*pkg.ResponseUser, len(usersInfo))
 	for i, v := range usersInfo {
@@ -20,6 +19,7 @@ func UserInfoToResponseUser(usersInfo []client.UserInfo) []*pkg.ResponseUser {
 	return res
 }
 
+// Mapping []*pkg.ResponseUser to map[string]*pkg.ResponseUser
 func ReponseUserToHashMap(users []*pkg.ResponseUser) map[string]*pkg.ResponseUser {
 	res := make(map[string]*pkg.ResponseUser)
 	for _, v := range users {

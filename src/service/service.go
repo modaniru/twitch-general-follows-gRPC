@@ -9,15 +9,16 @@ import (
 	"github.com/modaniru/tgf-gRPC/src/utils"
 )
 
-// TODO documentation
 type Service struct {
 	twitchClient *client.Queries
 }
 
+// Return new service.Service
 func NewService(twitchClient *client.Queries) *Service {
 	return &Service{twitchClient: twitchClient}
 }
 
+// Returns general follow list by []string of logins
 func (s *Service) GetGeneralFollows(nicknames []string) (*pkg.GetTGFResponse, error) {
 	users, err := s.GetUsersInfo(nicknames, "login")
 	if err != nil {
@@ -96,6 +97,7 @@ func (s *Service) GetGeneralFollows(nicknames []string) (*pkg.GetTGFResponse, er
 	}, nil
 }
 
+// Get user info by []string logins
 func (s *Service) GetUsersInfo(nicknames []string, searchType string) ([]*pkg.ResponseUser, error) {
 	users, err := s.twitchClient.GetUsersInfo(nicknames, searchType)
 	if err != nil {
