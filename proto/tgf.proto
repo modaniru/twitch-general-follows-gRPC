@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package tgf;
+
+option go_package = "github.com/modaniru/tgf-gRPC/pkg";
+
+service TwitchGeneralFollows{
+    rpc GetGeneralFollows(GetTGFRequest) returns (GetTGFResponse);
+}
+
+message OldestUser{
+    ResponseUser user = 1;
+    string date = 2;
+}
+
+message ResponseUser{
+    string displayName = 1;
+    string imageLink = 2;
+}
+
+message Streamer{
+    ResponseUser streamer = 1;
+    OldestUser oldestUser = 3;
+    string broadcasterType = 5;
+}
+
+message GetTGFRequest{
+    repeated string usernames = 1;
+}
+
+message GetTGFResponse{
+    repeated ResponseUser inputedUsers = 1;
+    repeated Streamer generalStreamers = 2;
+}
