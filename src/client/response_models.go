@@ -1,4 +1,5 @@
 package client
+
 // TODO documentation
 // TODO refactor
 type OauthToken struct {
@@ -42,8 +43,8 @@ type FollowInfo struct {
 	FollowedAt string `json:"followed_at"`
 }
 
-type FollowList struct{
-	Id string
+type FollowList struct {
+	Id         string
 	FollowList []FollowInfo
 }
 

@@ -8,21 +8,22 @@ import (
 	"github.com/modaniru/tgf-gRPC/src/client"
 	"github.com/modaniru/tgf-gRPC/src/utils"
 )
+
 // TODO documentation
 type Service struct {
 	twitchClient *client.Queries
 }
 
-func NewService(twitchClient *client.Queries) *Service{
+func NewService(twitchClient *client.Queries) *Service {
 	return &Service{twitchClient: twitchClient}
 }
 
-func (s *Service) GetGeneralFollows(nicknames []string) (*pkg.GetTGFResponse, error){
+func (s *Service) GetGeneralFollows(nicknames []string) (*pkg.GetTGFResponse, error) {
 	users, err := s.GetUsersInfo(nicknames, "login")
-	if err != nil{
+	if err != nil {
 		return nil, err
 	}
-	if len(users) != len(nicknames){
+	if len(users) != len(nicknames) {
 		return nil, errors.New("some users was not found")
 	}
 	usersMap := utils.ReponseUserToHashMap(users)
@@ -31,7 +32,7 @@ func (s *Service) GetGeneralFollows(nicknames []string) (*pkg.GetTGFResponse, er
 	//Получение списка подписок первого пользователя
 	go s.twitchClient.GetFollows(users[0].Id, channel)
 	//Получение подписок следующих пользователей
-	for _, v := range users[1:]{
+	for _, v := range users[1:] {
 		go s.twitchClient.GetFollows(v.Id, channel)
 	}
 	//Инициализация списка
@@ -45,25 +46,25 @@ func (s *Service) GetGeneralFollows(nicknames []string) (*pkg.GetTGFResponse, er
 			Date: v.FollowedAt,
 		}
 	}
-	for i := 1; i < len(users); i++{
-		nextGeneralFollows  := make(map[string]*pkg.OldestUser)
+	for i := 1; i < len(users); i++ {
+		nextGeneralFollows := make(map[string]*pkg.OldestUser)
 		followList = <-channel
 		if followList == nil {
 			return nil, errors.New("error")
 		}
-		for _, v := range followList{
+		for _, v := range followList {
 			prev, ok := generalFollows[v.ToId]
-			if ok{
+			if ok {
 				prevTime, err := time.Parse("2006-01-02T15:04:05Z", prev.Date)
-				if err != nil{
+				if err != nil {
 					return nil, err
 				}
 				nowTime, err := time.Parse("2006-01-02T15:04:05Z", v.FollowedAt)
-				if err != nil{
+				if err != nil {
 					return nil, err
 				}
 				oldestUser := generalFollows[v.ToId]
-				if prevTime.Compare(nowTime) > 0{
+				if prevTime.Compare(nowTime) > 0 {
 					oldestUser = &pkg.OldestUser{
 						User: usersMap[v.FromId],
 						Date: v.FollowedAt,
@@ -75,29 +76,29 @@ func (s *Service) GetGeneralFollows(nicknames []string) (*pkg.GetTGFResponse, er
 		generalFollows = nextGeneralFollows
 	}
 	ids := make([]string, 0, len(generalFollows))
-	for k := range generalFollows{
+	for k := range generalFollows {
 		ids = append(ids, k)
 	}
 	streamersInfo, err := s.GetUsersInfo(ids, "id")
-	if err != nil{
+	if err != nil {
 		return nil, err
 	}
 	generalStreamers := make([]*pkg.Streamer, 0, len(streamersInfo))
-	for _, v := range streamersInfo{
+	for _, v := range streamersInfo {
 		generalStreamers = append(generalStreamers, &pkg.Streamer{
-			Streamer: v,
+			Streamer:   v,
 			OldestUser: generalFollows[v.Id],
 		})
 	}
 	return &pkg.GetTGFResponse{
-		InputedUsers: users,
+		InputedUsers:     users,
 		GeneralStreamers: generalStreamers,
 	}, nil
 }
 
-func (s *Service) GetUsersInfo(nicknames []string, searchType string) ([]*pkg.ResponseUser, error){
+func (s *Service) GetUsersInfo(nicknames []string, searchType string) ([]*pkg.ResponseUser, error) {
 	users, err := s.twitchClient.GetUsersInfo(nicknames, searchType)
-	if err != nil{
+	if err != nil {
 		return nil, err
 	}
 	return utils.UserInfoToResponseUser(users), nil

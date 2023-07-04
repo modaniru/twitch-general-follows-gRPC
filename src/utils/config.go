@@ -9,10 +9,11 @@ import (
 
 func LoadConfig(filePath, fileType string) error {
 	err := godotenv.Load()
-	if err != nil{
+	if err != nil {
 		return err
 	}
 	viper.AddConfigPath(filePath)
+	viper.AddConfigPath("./")
 	viper.SetConfigType(fileType)
 	return viper.ReadInConfig()
 }
