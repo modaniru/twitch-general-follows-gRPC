@@ -11,7 +11,8 @@ import (
 
 	"github.com/gojek/heimdall/v7/httpclient"
 )
-
+// TODO documentation
+// TODO refactor
 const UserInfoURI = "https://api.twitch.tv/helix/users"
 const UserGetFollowListURI = "https://api.twitch.tv/helix/users/follows"
 const GetTokenURI = "https://id.twitch.tv/oauth2/token"

@@ -8,7 +8,7 @@ import (
 	"github.com/modaniru/tgf-gRPC/src/client"
 	"github.com/modaniru/tgf-gRPC/src/utils"
 )
-
+// TODO documentation
 type Service struct {
 	twitchClient *client.Queries
 }

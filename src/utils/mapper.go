@@ -5,6 +5,8 @@ import (
 	"github.com/modaniru/tgf-gRPC/src/client"
 )
 
+// TODO documentation
+
 func UserInfoToResponseUser(usersInfo []client.UserInfo) []*pkg.ResponseUser{
 	res := make([]*pkg.ResponseUser, len(usersInfo))
 	for i, v := range usersInfo{

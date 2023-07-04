@@ -5,6 +5,8 @@ import (
 	"github.com/spf13/viper"
 )
 
+// TODO documentation
+
 func LoadConfig(filePath, fileType string) error {
 	err := godotenv.Load()
 	if err != nil{

@@ -15,7 +15,7 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 )
-
+// TODO add Makefile for building
 func main() {
 	//Load yaml and .env file
 	err := utils.LoadConfig("configuration/", "yaml")

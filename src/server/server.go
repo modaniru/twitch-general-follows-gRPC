@@ -6,7 +6,7 @@ import (
 	pkg "github.com/modaniru/tgf-gRPC/pkg/proto"
 	"github.com/modaniru/tgf-gRPC/src/service"
 )
-
+// TODO documentation
 type TgfServer struct {
 	pkg.TwitchGeneralFollowsServer
 	service *service.Service

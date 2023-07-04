@@ -1,5 +1,6 @@
 package client
-
+// TODO documentation
+// TODO refactor
 type OauthToken struct {
 	AccessToken string `json:"access_token"`
 	ExpiresIn   int    `json:"expires_in"`
