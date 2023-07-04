@@ -22,6 +22,9 @@ func (s *Service) GetGeneralFollows(nicknames []string) (*pkg.GetTGFResponse, er
 	if err != nil{
 		return nil, err
 	}
+	if len(users) != len(nicknames){
+		return nil, errors.New("some users was not found")
+	}
 	usersMap := utils.ReponseUserToHashMap(users)
 	generalFollows := make(map[string]*pkg.OldestUser)
 	channel := make(chan []client.FollowInfo)
