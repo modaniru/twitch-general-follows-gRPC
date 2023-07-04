@@ -16,12 +16,13 @@ message OldestUser{
 message ResponseUser{
     string displayName = 1;
     string imageLink = 2;
+    string id = 3;
+    string broadcasterType = 5;
 }
 
 message Streamer{
     ResponseUser streamer = 1;
     OldestUser oldestUser = 3;
-    string broadcasterType = 5;
 }
 
 message GetTGFRequest{
