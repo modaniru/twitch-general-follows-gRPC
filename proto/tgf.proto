@@ -9,7 +9,7 @@ service TwitchGeneralFollows{
 }
 
 message OldestUser{
-    ResponseUser user = 1;
+    string username = 1;
     string date = 2;
 }
 

@@ -43,8 +43,8 @@ func (s *Service) GetGeneralFollows(nicknames []string) (*pkg.GetTGFResponse, er
 	}
 	for _, v := range followList[1:] {
 		generalFollows[v.ToId] = &pkg.OldestUser{
-			User: usersMap[v.FromId],
-			Date: v.FollowedAt,
+			Username: usersMap[v.FromId].DisplayName,
+			Date:     v.FollowedAt,
 		}
 	}
 	for i := 1; i < len(users); i++ {
@@ -67,8 +67,8 @@ func (s *Service) GetGeneralFollows(nicknames []string) (*pkg.GetTGFResponse, er
 				oldestUser := generalFollows[v.ToId]
 				if prevTime.Compare(nowTime) > 0 {
 					oldestUser = &pkg.OldestUser{
-						User: usersMap[v.FromId],
-						Date: v.FollowedAt,
+						Username: usersMap[v.FromId].DisplayName,
+						Date:     v.FollowedAt,
 					}
 				}
 				nextGeneralFollows[v.ToId] = oldestUser

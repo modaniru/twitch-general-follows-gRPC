@@ -18,6 +18,7 @@ func NewServer(service *service.Service) *TgfServer {
 		service: service,
 	}
 }
+
 // Return general follow list by request
 func (t *TgfServer) GetGeneralFollows(c context.Context, request *pkg.GetTGFRequest) (*pkg.GetTGFResponse, error) {
 	return t.service.GetGeneralFollows(request.GetUsernames())
