@@ -99,6 +99,9 @@ func (s *Service) GetGeneralFollows(nicknames []string) (*pkg.GetTGFResponse, er
 
 // Get user info by []string logins
 func (s *Service) GetUsersInfo(nicknames []string, searchType string) ([]*pkg.ResponseUser, error) {
+	if len(nicknames) == 0 {
+		return []*pkg.ResponseUser{}, nil
+	}
 	users, err := s.twitchClient.GetUsersInfo(nicknames, searchType)
 	if err != nil {
 		return nil, err
