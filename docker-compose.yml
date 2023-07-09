@@ -3,6 +3,7 @@ version: '3.1'
 services:
   tgf:
     build: .
+    image: tgf:latest
     env_file:
       - .env
     ports:
