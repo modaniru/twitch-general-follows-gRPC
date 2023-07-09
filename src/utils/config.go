@@ -7,12 +7,14 @@ import (
 
 // Load ("./" or "./configuration").config.yaml and .env files
 func LoadConfig(filePath, fileType string) error {
-	err := godotenv.Load()
-	if err != nil {
-		return err
-	}
 	viper.AddConfigPath(filePath)
 	viper.AddConfigPath("./")
 	viper.SetConfigType(fileType)
-	return viper.ReadInConfig()
+	err := viper.ReadInConfig()
+	if err != nil {
+		return err
+	}
+	// Если у нас есть .env файл, загружаем переменные с него, иначе они должны быть поставлены другим способом
+	_ = godotenv.Load()
+	return nil
 }

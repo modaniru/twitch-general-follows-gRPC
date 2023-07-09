@@ -5,7 +5,7 @@ run: fmt
 
 ##format project
 .PHONY: fmt
-fmt:
+fmt: install
 	go fmt ./...
 
 ##build project
@@ -22,5 +22,16 @@ install:
 .PHONY: optimize
 optimize:
 	go mod tidy -v
+
+##build and run project
+.PHONY: build-run
+build-run: build
+	./main
+
+##docker-compose up
+.PHONY: dcu
+dcu:
+	docker-compose build
+	docker-compose up
 
 .DEFAULT_GOAL := run

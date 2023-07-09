@@ -1,0 +1,10 @@
+version: '3.1'
+
+services:
+  tgf:
+    build: .
+    env_file:
+      - .env
+    ports:
+      - 5050:8080
+    restart: always
