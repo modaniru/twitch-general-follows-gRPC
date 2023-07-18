@@ -11,7 +11,7 @@ fmt: install
 ##build project
 .PHONY: build
 build: fmt
-	go build ./src/main.go 
+	go build ./src/main.go
 
 ##install all dependencies
 .PHONY: install
