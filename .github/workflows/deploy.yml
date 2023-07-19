@@ -1,7 +1,8 @@
 name: deploy
 on:
   push:
-    - 'master'
+    branches:
+      - 'master'
 
 env:
   TWITCH_CLIENT_ID: ${{secrets.TWITCH_CLIENT_ID}}
