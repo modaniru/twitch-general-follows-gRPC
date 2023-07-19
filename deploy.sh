@@ -10,7 +10,7 @@ echo "${TWITCH_CLIENT_ID}"
 echo "${TWITCH_CLIENT_SECRET}"
 
 
-if [[ "$CONTAINER_ID" != ""]]; then
+if [ "$CONTAINER_ID" != ""]; then
     docker stop $CONTAINER_ID
 fi
 
