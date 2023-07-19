@@ -1,8 +1,8 @@
 #!/bin/sh
 set -e
 
-IMAGE="tgf:latest"
-CONTAINER_ID=docker ps -aqf "name=tgf"
+export IMAGE="tgf:latest"
+export CONTAINER_ID=docker ps -aqf "name=tgf"
 
 docker build -t IMAGE .
 
