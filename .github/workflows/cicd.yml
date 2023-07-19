@@ -1,0 +1,12 @@
+name: cicd
+on: push
+jobs:
+  golang:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      - name: install deps
+        run: go get -d ./...
+      - name: lint
+        run: go vet ./...
