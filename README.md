@@ -69,7 +69,7 @@ docker run -p 8080:8080 --env-file path modaniru/tgf
 ~~~
 **build** and run docker container
 ~~~bash
-docker build --name imageName
+docker build -t imageName .
 docker run --env-file path -p 8080:8080 imageName
 ~~~
 

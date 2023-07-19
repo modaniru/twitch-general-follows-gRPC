@@ -4,7 +4,6 @@ ENV GOPATH=/
 
 WORKDIR /app
 
-COPY configuration configuration
 COPY pkg pkg
 COPY src src
 COPY go.mod .

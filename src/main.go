@@ -15,6 +15,7 @@ import (
 )
 
 // TODO add README.md with docs
+// case сикретов в образе
 func main() {
 	//Load .env file
 	utils.LoadEnvIfExist()
