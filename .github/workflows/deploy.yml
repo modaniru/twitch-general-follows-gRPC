@@ -4,13 +4,14 @@ on:
     branches:
       - 'master'
 
-env:
-  TWITCH_CLIENT_ID: ${{secrets.TWITCH_CLIENT_ID}}
-  TWITCH_CLIENT_SECRET: ${{secrets.TWITCH_CLIENT_SECRET}}
+
 
 jobs:
   deploy:
     runs-on: tgf
+    env:
+      TWITCH_CLIENT_ID: ${{secrets.TWITCH_CLIENT_ID}}
+      TWITCH_CLIENT_SECRET: ${{secrets.TWITCH_CLIENT_SECRET}}
     steps:
       - name: checkout
         uses: actions/checkout@v3

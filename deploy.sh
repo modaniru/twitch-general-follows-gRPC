@@ -9,10 +9,8 @@ echo "$CONTAINER_ID"
 echo "${TWITCH_CLIENT_ID}"
 echo "${TWITCH_CLIENT_SECRET}"
 
+docker stop $CONTAINER_ID
 
-if [ "$CONTAINER_ID" != ""]; then
-    docker stop $CONTAINER_ID
-fi
 
 docker build -t $IMAGE .
 
