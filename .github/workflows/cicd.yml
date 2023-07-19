@@ -11,6 +11,7 @@ jobs:
       - name: Linting
         run: go vet ./...
   test:
+    needs: [build]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
