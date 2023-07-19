@@ -21,7 +21,6 @@ func main() {
 	//Load .env file
 	utils.LoadEnvIfExist()
 	//DIP
-	fmt.Println(os.Getenv("TWITCH_CLIENT_ID"))
 	client := client.NewQueries(os.Getenv("TWITCH_CLIENT_ID"), os.Getenv("TWITCH_CLIENT_SECRET"))
 	service := service.NewService(client)
 	server := server.NewServer(service)
