@@ -22,7 +22,7 @@ Create .env file
   touch .env
 ~~~
 
-Write secrets in .env
+Write secrets in .env ([more](https://github.com/modaniru/twitch-general-follows-gRPC#environment-variables))
 
 ~~~bash
   TWITCH_CLIENT_ID=your twitch client id
@@ -66,8 +66,16 @@ docker build --name imageName
 docker run --env-file path -p 8080:8080 imageName
 ~~~
 
+## Environment variables
+
+~~~bash
+  TWITCH_CLIENT_ID=id // your twitch apps client id
+  TWITCH_CLIENT_SECRET=secret // your twitch apps client secret
+  PORT=80 // application running port (optional, default: 8080)
+~~~
+
 ## Tasks
-- [ ] Remove yaml configuration
+- [x] Remove yaml configuration
 - [ ] SOLID (refactoring)
 - [ ] CI/CD
 - [ ] Tests
