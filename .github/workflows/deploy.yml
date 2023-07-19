@@ -14,10 +14,12 @@ jobs:
       TWITCH_CLIENT_SECRET: ${{ secrets.TWITCH_CLIENT_SECRET }}
     steps:
       - name: echo
-        run: export TWITCH_CLIENT_ID=${{ secrets.TWITCH_CLIENT_ID }}
+        run: export TWITCH_CLIENT_ID=
       - name: checkout
         uses: actions/checkout@v3
       - name: script registry
         run: chmod +x ./deploy.sh
       - name: deploy
         run: sudo ./deploy.sh
+      - name: run-container
+        run: docker run --restart unless-stopped -d -p 80:8080 --name tgf -e TWITCH_CLIENT_ID=${{ secrets.TWITCH_CLIENT_ID }} -e TWITCH_CLIENT_SECRET=${{ secrets.TWITCH_CLIENT_SECRET }} tgf:latest | docker system prune -a -f
