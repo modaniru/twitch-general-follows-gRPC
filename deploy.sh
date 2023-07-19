@@ -4,7 +4,11 @@ set -e
 IMAGE="tgf:latest"
 CONTAINER_ID=`docker ps -aqf "name=tgf"`
 
+echo "TESTS"
 echo "$CONTAINER_ID"
+echo "${TWITCH_CLIENT_ID}"
+echo "${TWITCH_CLIENT_SECRET}"
+
 
 if [[ "$CONTAINER_ID" != ""]]; then
     docker stop $CONTAINER_ID
