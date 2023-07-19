@@ -4,6 +4,8 @@ set -e
 IMAGE="tgf:latest"
 CONTAINER_ID=`docker ps -aqf "name=tgf"`
 
+echo "$CONTAINER_ID"
+
 if [[ "$CONTAINER_ID" != ""]]; then
     docker stop $CONTAINER_ID
 fi
