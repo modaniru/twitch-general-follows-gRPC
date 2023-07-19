@@ -34,7 +34,7 @@ func TestMapUserInfoToResponseUser(t *testing.T){
 		result: []*pkg.ResponseUser{
 			{
 				DisplayName: "Test",
-				ImageLink: "url",
+				ImageLink: "ur",
 				Id: "123123",
 				BroadcasterType: "partner",
 			},
