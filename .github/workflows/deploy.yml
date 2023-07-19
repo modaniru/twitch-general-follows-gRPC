@@ -10,7 +10,7 @@ env:
 
 jobs:
   deploy:
-    runs-on: self-hosted
+    runs-on: tgf
     steps:
       - name: checkout
         uses: actions/checkout@v3
