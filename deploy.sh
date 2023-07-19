@@ -4,6 +4,8 @@ set -e
 IMAGE="tgf:latest"
 CONTAINER_ID=`docker ps -aqf "name=tgf"`
 
+echo "dsahejqhjehq hdhsaehq ${TWITCH_CLIENT_ID}"
+
 docker stop $CONTAINER_ID
 docker rm $CONTAINER_ID
 
