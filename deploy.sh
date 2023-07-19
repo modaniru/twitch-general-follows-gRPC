@@ -2,7 +2,7 @@
 set -e
 
 export IMAGE="tgf:latest"
-export CONTAINER_ID=docker ps -aqf "name=tgf"
+export CONTAINER_ID=$(docker ps -aqf "name=tgf")
 
 docker build -t IMAGE .
 
