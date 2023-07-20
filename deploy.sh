@@ -3,7 +3,7 @@ set -e
 
 IMAGE="tgf:latest"
 
-docker stop tgf
-docker rm tgf
+docker stop tgf || true
+docker rm tgf || true
 
 docker build -t $IMAGE .
