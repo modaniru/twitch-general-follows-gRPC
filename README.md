@@ -83,6 +83,6 @@ docker run --env-file path -p 8080:8080 imageName
 
 ## Tasks
 - [x] Remove yaml configuration
-- [ ] SOLID (refactoring)
-- [ ] CI/CD
+- [x] SOLID (refactoring)
+- [x] CI/CD
 - [ ] Tests
