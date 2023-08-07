@@ -34,8 +34,9 @@ func (s *Service) GetGeneralFollows(nicknames []string) (*pkg.GetTGFResponse, er
 	channel := make(chan []client.FollowInfo, 100)
 	//Получение подписок следующих пользователей
 	for _, v := range users {
+		value := v.Id
 		go func() {
-			f, err := s.twitchClient.GetFollows(v.Id)
+			f, err := s.twitchClient.GetFollows(value)
 			if err != nil {
 				channel <- nil
 				return
