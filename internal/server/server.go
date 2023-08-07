@@ -3,8 +3,8 @@ package server
 import (
 	"context"
 
-	pkg "github.com/modaniru/tgf-gRPC/pkg/proto"
 	"github.com/modaniru/tgf-gRPC/internal/service"
+	pkg "github.com/modaniru/tgf-gRPC/pkg/proto"
 )
 
 type TgfServer struct {

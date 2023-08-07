@@ -86,12 +86,27 @@ func (q *Queries) IsValid() (*ValidToken, error) {
 
 func (q *Queries) GetUsersInfo(data []string, dataType string) ([]UserInfo, error) {
 	iterations := len(data)/100 + 1
-	channel := make(chan *UserCollection)
+	channel := make(chan *UserCollection, 100)
 	for len(data) > 100 {
-		go q.getUsersInfoRoutine(data[:100], dataType, channel)
+		temp := data[:100]
+		go func() {
+			u, err := q.getUsersInfoRoutine(temp, dataType)
+			if err != nil {
+				channel <- nil
+				return
+			}
+			channel <- u
+		}()
 		data = data[100:]
 	}
-	go q.getUsersInfoRoutine(data, dataType, channel)
+	go func() {
+		u, err := q.getUsersInfoRoutine(data, dataType)
+		if err != nil {
+			channel <- nil
+			return
+		}
+		channel <- u
+	}()
 	res := []UserInfo{}
 	for i := 0; i < iterations; i++ {
 		userCollection := <-channel
@@ -103,7 +118,7 @@ func (q *Queries) GetUsersInfo(data []string, dataType string) ([]UserInfo, erro
 	return res, nil
 }
 
-func (q *Queries) getUsersInfoRoutine(users []string, t string, channel chan *UserCollection) {
+func (q *Queries) getUsersInfoRoutine(users []string, t string) (*UserCollection, error) {
 	uri := UserInfoURI
 	for i, v := range users {
 		symb := "&"
@@ -118,21 +133,19 @@ func (q *Queries) getUsersInfoRoutine(users []string, t string, channel chan *Us
 	header.Add("Client-Id", q.clientId)
 	res, err := q.client.Get(uri, header)
 	if err != nil {
-		channel <- nil
-		return
+		return nil, err
 	}
 	if res.StatusCode != 200 {
-		channel <- nil
-		return
+		return nil, fmt.Errorf("%d status code", res.StatusCode)
+
 	}
 	body, err := io.ReadAll(res.Body)
 	if err != nil {
-		channel <- nil
-		return
+		return nil, err
 	}
 	var response UserCollection
 	json.Unmarshal([]byte(string(body)), &response)
-	channel <- &response
+	return &response, nil
 }
 
 func (q *Queries) getToken() string {
@@ -148,42 +161,40 @@ func (q *Queries) getToken() string {
 }
 
 // go routine
-func (q *Queries) GetFollows(id string, ch chan []FollowInfo) {
-	channel := make(chan *FollowsCollection)
+func (q *Queries) GetFollows(id string) ([]FollowInfo, error) {
 	uri := fmt.Sprintf("%s?from_id=%s&first=%d", UserGetFollowListURI, id, 100)
-	go q.getFollowsWithoutPagination(uri, channel)
-	response := <-channel
+	response, err := q.getFollowsWithoutPagination(uri)
+	if err != nil {
+		return nil, err
+	}
 	var result []FollowInfo
 	result = append(result, response.Data...)
+
 	for response.Pagination.Cursor != "" {
 		uri2 := fmt.Sprintf("%s&after=%s", uri, response.Pagination.Cursor)
-		go q.getFollowsWithoutPagination(uri2, channel)
-		response = <-channel
-		if response == nil {
-			ch <- nil
-			return
+		response, err = q.getFollowsWithoutPagination(uri2)
+		if err != nil {
+			return nil, err
 		}
 		result = append(result, response.Data...)
 	}
-	ch <- result
+	return result, nil
 }
 
-func (q *Queries) getFollowsWithoutPagination(uri string, channel chan *FollowsCollection) {
+func (q *Queries) getFollowsWithoutPagination(uri string) (*FollowsCollection, error) {
 	header := http.Header{}
 	token := "Bearer " + q.getToken()
 	header.Add("Authorization", token)
 	header.Add("Client-Id", q.clientId)
 	res, err := q.client.Get(uri, header)
 	if err != nil || res.StatusCode != 200 {
-		channel <- nil
-		return
+		return nil, err
 	}
 	body, err := io.ReadAll(res.Body)
 	if err != nil {
-		channel <- nil
-		return
+		return nil, err
 	}
 	var response FollowsCollection
 	json.Unmarshal([]byte(string(body)), &response)
-	channel <- &response
+	return &response, nil
 }

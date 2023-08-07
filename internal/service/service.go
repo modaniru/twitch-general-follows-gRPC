@@ -2,11 +2,12 @@ package service
 
 import (
 	"errors"
+	"fmt"
 	"time"
 
-	pkg "github.com/modaniru/tgf-gRPC/pkg/proto"
 	"github.com/modaniru/tgf-gRPC/internal/client"
 	"github.com/modaniru/tgf-gRPC/internal/utils"
+	pkg "github.com/modaniru/tgf-gRPC/pkg/proto"
 )
 
 type Service struct {
@@ -29,12 +30,18 @@ func (s *Service) GetGeneralFollows(nicknames []string) (*pkg.GetTGFResponse, er
 	}
 	usersMap := utils.ReponseUserToHashMap(users)
 	generalFollows := make(map[string]*pkg.OldestUser)
-	channel := make(chan []client.FollowInfo)
-	//Получение списка подписок первого пользователя
-	go s.twitchClient.GetFollows(users[0].Id, channel)
+	now := time.Now()
+	channel := make(chan []client.FollowInfo, 100)
 	//Получение подписок следующих пользователей
-	for _, v := range users[1:] {
-		go s.twitchClient.GetFollows(v.Id, channel)
+	for _, v := range users {
+		go func() {
+			f, err := s.twitchClient.GetFollows(v.Id)
+			if err != nil {
+				channel <- nil
+				return
+			}
+			channel <- f
+		}()
 	}
 	//Инициализация списка
 	followList := <-channel
@@ -91,6 +98,7 @@ func (s *Service) GetGeneralFollows(nicknames []string) (*pkg.GetTGFResponse, er
 			OldestUser: generalFollows[v.Id],
 		})
 	}
+	fmt.Println(time.Since(now).Seconds())
 	return &pkg.GetTGFResponse{
 		InputedUsers:     users,
 		GeneralStreamers: generalStreamers,
