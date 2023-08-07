@@ -1,8 +1,8 @@
 package utils
 
 import (
+	"github.com/modaniru/tgf-gRPC/internal/client"
 	pkg "github.com/modaniru/tgf-gRPC/pkg/proto"
-	"github.com/modaniru/tgf-gRPC/src/client"
 )
 
 // Mapping []client.UserInfo to []*pkg.ResponseUser

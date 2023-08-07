@@ -4,8 +4,8 @@ import (
 	"reflect"
 	"testing"
 
+	"github.com/modaniru/tgf-gRPC/internal/client"
 	pkg "github.com/modaniru/tgf-gRPC/pkg/proto"
-	"github.com/modaniru/tgf-gRPC/src/client"
 )
 
 type Test struct {
@@ -54,19 +54,19 @@ func TestMapUserInfoToResponseUser(t *testing.T) {
 	}
 }
 
-func TestResponseUserToHashMap(t *testing.T){
+func TestResponseUserToHashMap(t *testing.T) {
 	array := []*pkg.ResponseUser{
 		{DisplayName: "test1", ImageLink: "url", Id: "123123", BroadcasterType: "partner"},
 		{DisplayName: "test2", ImageLink: "url", Id: "123124", BroadcasterType: "partner"},
 		{DisplayName: "test3", ImageLink: "url", Id: "123125", BroadcasterType: "partner"},
 	}
 	except := make(map[string]*pkg.ResponseUser)
-	for _, u := range array{
+	for _, u := range array {
 		except[u.Id] = u
 	}
 	actual := ReponseUserToHashMap(array)
 	ok := reflect.DeepEqual(except, actual)
-	if !ok{
+	if !ok {
 		t.Errorf("test name: %s: require \n%+v, response \n%+v", "TestResponseUserToHashMap", except, actual)
 	}
 }

@@ -1,7 +1,7 @@
 ##run gRPC server
 .PHONY: run
 run: fmt
-	go run ./src/main.go
+	go run ./cmd/main.go
 
 ##format project
 .PHONY: fmt
@@ -11,7 +11,7 @@ fmt: install
 ##build project
 .PHONY: build
 build: fmt
-	go build ./src/main.go
+	go build ./cmd/main.go
 
 ##install all dependencies
 .PHONY: install
