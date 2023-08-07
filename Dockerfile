@@ -5,12 +5,13 @@ ENV GOPATH=/
 WORKDIR /app
 
 COPY pkg pkg
-COPY src src
+COPY cmd cmd
+COPY internal internal
 COPY go.mod .
 COPY go.sum .
 
 RUN go get -d ./...
-RUN go build src/main.go
+RUN go build cmd/main.go
 
 FROM alpine:latest
 COPY --from=build ./app/main .

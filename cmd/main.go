@@ -6,10 +6,10 @@ import (
 	"os"
 
 	pkg "github.com/modaniru/tgf-gRPC/pkg/proto"
-	"github.com/modaniru/tgf-gRPC/src/client"
-	"github.com/modaniru/tgf-gRPC/src/server"
-	"github.com/modaniru/tgf-gRPC/src/service"
-	"github.com/modaniru/tgf-gRPC/src/utils"
+	"github.com/modaniru/tgf-gRPC/internal/client"
+	"github.com/modaniru/tgf-gRPC/internal/server"
+	"github.com/modaniru/tgf-gRPC/internal/service"
+	"github.com/modaniru/tgf-gRPC/internal/utils"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 )

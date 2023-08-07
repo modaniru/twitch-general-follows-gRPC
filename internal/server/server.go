@@ -4,7 +4,7 @@ import (
 	"context"
 
 	pkg "github.com/modaniru/tgf-gRPC/pkg/proto"
-	"github.com/modaniru/tgf-gRPC/src/service"
+	"github.com/modaniru/tgf-gRPC/internal/service"
 )
 
 type TgfServer struct {

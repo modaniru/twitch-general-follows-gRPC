@@ -5,8 +5,8 @@ import (
 	"time"
 
 	pkg "github.com/modaniru/tgf-gRPC/pkg/proto"
-	"github.com/modaniru/tgf-gRPC/src/client"
-	"github.com/modaniru/tgf-gRPC/src/utils"
+	"github.com/modaniru/tgf-gRPC/internal/client"
+	"github.com/modaniru/tgf-gRPC/internal/utils"
 )
 
 type Service struct {

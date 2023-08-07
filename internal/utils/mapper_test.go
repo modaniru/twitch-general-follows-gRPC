@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	pkg "github.com/modaniru/tgf-gRPC/pkg/proto"
-	"github.com/modaniru/tgf-gRPC/src/client"
+	"github.com/modaniru/tgf-gRPC/internal/client"
 )
 
 type Test struct {
